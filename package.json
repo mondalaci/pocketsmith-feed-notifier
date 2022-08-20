@@ -1,0 +1,22 @@
+{
+  "name": "pocketsmith-feed-notifier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mondalaci/pocketsmith-feed-notifier.git"
+  },
+  "author": "László Monda",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/mondalaci/pocketsmith-feed-notifier/issues"
+  },
+  "homepage": "https://github.com/mondalaci/pocketsmith-feed-notifier#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
