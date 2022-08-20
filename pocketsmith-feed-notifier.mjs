@@ -12,8 +12,8 @@ async function get(path) {
 const me = await get('me');
 const userId = me.id;
 const accounts = await get(`users/${userId}/transaction_accounts`);
-const outdatedOnlineAccounts = accounts.filter(account => {
+const onlineAccounts = accounts.filter(account => !account.offline);
+for (const account of onlineAccounts) {
     const date = new Date() - new Date(account.updated_at);
-    console.log(account.name, account.offline, account.updated_at, date/1000/60/60)
-    return !account.offline;
-});
+    console.log(`${account.name} | ${account.updated_at} | ${Math.round(date/1000/60/60)}h ago`);
+};
