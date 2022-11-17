@@ -47,5 +47,5 @@ while (true) {
         });
     }
 
-    await delay(60*60*1000);
+    await delay(24*60*60*1000);
 }
