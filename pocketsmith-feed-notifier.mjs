@@ -32,9 +32,11 @@ while (true) {
     let text = '';
     for (const account of onlineAccounts) {
         const updatedIntervalMs = new Date() - new Date(account.updated_at);
-        text += `${account.name} updated ${Math.round(updatedIntervalMs/1000/60/60)}h ago\n`;
-    };
-    console.log(text)
+        const updatedHoursAgo = Math.round(updatedIntervalMs/1000/60/60);
+        if (updatedHoursAgo > config.updatedHoursLimit) {
+            text += `${account.name} updated ${updatedHoursAgo}h ago\n`;
+        }
+    }
 
     if (text) {
         sendMail({
