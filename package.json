@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/mondalaci/pocketsmith-feed-notifier#readme",
   "dependencies": {
+    "aws-sdk": "^2.1256.0",
     "axios": "^0.27.2",
-    "moment": "^2.29.4"
+    "nodemailer": "^6.8.0"
   }
 }

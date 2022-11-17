@@ -1,24 +1,22 @@
 #!/usr/bin/env node
 
+import util from 'node:util';
 import axios from 'axios';
-import moment from 'moment';
-import {developerKey} from './config.mjs';
+import aws from 'aws-sdk';
+import nodemailer from 'nodemailer';
+import {config} from './config.mjs';
 
-axios.defaults.headers.common['X-Developer-Key'] = developerKey;
+aws.config.update(config.aws);
+const ses = new aws.SES();
+const transporter = nodemailer.createTransport({SES: ses});
+const sendMail = util.promisify(transporter.sendMail).bind(transporter);
+
+axios.defaults.headers.common['X-Developer-Key'] = config.pocketsmithDeveloperKey;
 
 function delay(time) {
     return new Promise(function(resolve) {
-        setTimeout(resolve, time)
+        setTimeout(resolve, time);
     });
-}
-
-function getTimestamp() {
-    return moment().format('YYYY-MM-DD HH:mm:ss');
-}
-
-function log(message) {
-    const timestamp = getTimestamp();
-    console.log(`${timestamp} ${message}`);
 }
 
 async function get(path) {
@@ -31,9 +29,21 @@ const userId = me.id;
 while (true) {
     const accounts = await get(`users/${userId}/transaction_accounts`);
     const onlineAccounts = accounts.filter(account => !account.offline);
+    let text = '';
     for (const account of onlineAccounts) {
-        const date = new Date() - new Date(account.updated_at);
-        log(`${account.name} | ${account.updated_at} | ${Math.round(date/1000/60/60)}h ago`);
+        const updatedIntervalMs = new Date() - new Date(account.updated_at);
+        text += `${account.name} updated ${Math.round(updatedIntervalMs/1000/60/60)}h ago\n`;
     };
+    console.log(text)
+
+    if (text) {
+        sendMail({
+            from: config.email.from,
+            to: config.email.to,
+            subject: 'PocketSmith feed is not updating',
+            text,
+        });
+    }
+
     await delay(60*60*1000);
 }
