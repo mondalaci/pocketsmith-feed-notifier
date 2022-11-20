@@ -42,7 +42,7 @@ while (true) {
         sendMail({
             from: config.email.from,
             to: config.email.to,
-            subject: 'PocketSmith feed is not updating',
+            subject: `PocketSmith ${config.accountName} feed is not updating`.replace('  ', ' '),
             text,
         });
     }
