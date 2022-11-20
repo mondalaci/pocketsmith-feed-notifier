@@ -1,0 +1,14 @@
+{
+    "accountName": "",
+    "updatedHoursLimit": 48,
+    "pocketsmithDeveloperKey": "",
+    "aws": {
+        "region": "",
+        "accessKeyId": "",
+        "secretAccessKey": ""
+    },
+    "email": {
+        "from": "",
+        "to": ""
+    }
+}

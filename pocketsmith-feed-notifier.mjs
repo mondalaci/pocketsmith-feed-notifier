@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 
+import {readFile} from 'node:fs/promises';
 import util from 'node:util';
 import axios from 'axios';
 import aws from 'aws-sdk';
 import nodemailer from 'nodemailer';
-import {config} from './config.mjs';
+
+const configFilename = process.argv.length > 2 ? process.argv[2] : 'config.json';
+const config = JSON.parse(await readFile(configFilename));
 
 aws.config.update(config.aws);
 const ses = new aws.SES();
