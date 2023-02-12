@@ -41,6 +41,10 @@ while (true) {
         }
     }
 
+    if (text && config.emailComment) {
+        text += `\n${config.emailComment}`;
+    }
+
     if (text) {
         sendMail({
             from: config.email.from,

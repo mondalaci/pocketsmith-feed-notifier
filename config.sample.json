@@ -1,6 +1,7 @@
 {
     "accountName": "",
     "updatedHoursLimit": 48,
+    "emailComment": "",
     "pocketsmithDeveloperKey": "",
     "aws": {
         "region": "",
